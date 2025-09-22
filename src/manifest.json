@@ -4,6 +4,14 @@
 	"version": "0.0.1",
 	"description": "Draw, resize, drag and move a ruler box on any webpage.",
 	"permissions": ["scripting", "activeTab"],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "better-page-ruler@sayedulsayem.com",
+			"data_collection_permissions": {
+				"required": ["none"]
+			}
+		}
+	},
 	"background": {
 		"service_worker": "background.js",
 		"scripts": ["background.js"]
