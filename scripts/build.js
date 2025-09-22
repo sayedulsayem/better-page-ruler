@@ -65,30 +65,14 @@ function generateBrowserSpecificManifest(browserName, manifestSrc, manifestDest)
 	switch (browserName) {
 		case 'chrome':
 		case 'edge':
-			// Manifest V3 for Chrome/Edge
-			manifest.manifest_version = 3;
-			if (manifest.background) {
-				// Use service_worker for V3
-				manifest.background = {
-					service_worker: 'background.js',
-				};
+			if (manifest.background.scripts) {
+				delete manifest.background.scripts;
 			}
 			break;
 
 		case 'firefox':
-			// Manifest V2 for Firefox
-			manifest.manifest_version = 2;
-			if (manifest.background) {
-				// Use scripts array for V2
-				manifest.background = {
-					scripts: ['background.js'],
-					persistent: false,
-				};
-			}
-			// Change 'action' to 'browser_action' for V2
-			if (manifest.action) {
-				manifest.browser_action = manifest.action;
-				delete manifest.action;
+			if (manifest.background.service_worker) {
+				delete manifest.background.service_worker;
 			}
 			break;
 

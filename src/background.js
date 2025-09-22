@@ -20,7 +20,7 @@ if (chrome && chrome.action && chrome.action.onClicked) {
 	});
 } else if (browser && browser === 'firefox') {
 	// Firefox doesn't support chrome.action.onClicked, so we need to use a different approach
-	browser.browserAction.onClicked.addListener(tab => {
+	browser.action.onClicked.addListener(tab => {
 		// First, ensure the content script and CSS are injected
 		try {
 			browser.tabs.executeScript({
