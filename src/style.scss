@@ -1,0 +1,281 @@
+// Browser-specific variables and mixins
+// These will be customized per browser during build
+
+// Default values (Chrome/Edge)
+$browser: 'chrome' !default;
+$manifest-version: 3 !default;
+
+// Color scheme
+$primary-color: #4cafef;
+$primary-hover: #2196f3;
+$danger-color: #ef4444;
+$danger-hover: #dc2626;
+$grid-color: rgba(128, 128, 128, 0.15);
+$overlay-bg: rgba(255, 255, 255, 0.01);
+$ruler-bg: rgba(76, 175, 239, 0.1);
+$dimensions-bg: rgba(76, 175, 239, 0.9);
+
+// Z-index layers
+$z-grid: 999997;
+$z-overlay: 999998;
+$z-ruler: 999999;
+$z-dimensions: 1000000;
+$z-close-btn: 1000001;
+
+// Mixins for cross-browser compatibility
+@mixin user-select-none {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@mixin touch-action($action) {
+	touch-action: $action;
+
+	// Firefox-specific touch handling
+	@if $browser == 'firefox' {
+		-moz-touch-action: $action;
+	}
+}
+
+@mixin webkit-optimizations {
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+// Browser-specific adjustments
+@mixin browser-specific-styles {
+	@if $browser == 'firefox' {
+		// Firefox-specific styles
+		-moz-appearance: none;
+	} @else if $browser == 'chrome' or $browser == 'edge' {
+		// Chromium-based browsers
+		@include webkit-optimizations;
+	}
+}
+
+/* Overlay */
+.better-page-ruler-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	background: $overlay-bg;
+	z-index: $z-overlay;
+	cursor: crosshair;
+	@include touch-action(pan-y pan-x);
+	@include user-select-none;
+	@include browser-specific-styles;
+}
+
+/* Grid lines */
+.better-page-ruler-grid {
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(to right, $grid-color 1px, transparent 1px),
+		linear-gradient(to bottom, $grid-color 1px, transparent 1px);
+	background-size: 20px 20px;
+	pointer-events: none;
+	z-index: $z-grid;
+}
+
+/* Ruler box */
+.better-page-ruler-box {
+	position: absolute;
+	border: 2px dashed $primary-color;
+	background: $ruler-bg;
+	cursor: move;
+	z-index: $z-ruler;
+	@include touch-action(none);
+	@include user-select-none;
+	@include browser-specific-styles;
+}
+
+/* Dimensions display */
+.better-page-ruler-dimensions {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: $dimensions-bg;
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-family: 'Courier New', monospace;
+	font-size: 12px;
+	font-weight: bold;
+	white-space: nowrap;
+	pointer-events: none;
+	z-index: $z-dimensions;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	@include user-select-none;
+}
+
+/* Box close button */
+.better-page-ruler-box-close {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	background: $danger-color;
+	color: white;
+	border: none;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+	cursor: pointer;
+	z-index: $z-close-btn;
+	@include touch-action(manipulation);
+	@include user-select-none;
+	@include browser-specific-styles;
+
+	&:hover {
+		background: $danger-hover;
+	}
+}
+
+/* Resize handles */
+.better-page-ruler-handle {
+	position: absolute;
+	@include touch-action(none);
+	@include user-select-none;
+	@include browser-specific-styles;
+
+	&.left,
+	&.right {
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: transparent;
+		cursor: ew-resize;
+
+		&:hover {
+			background: rgba($primary-color, 0.3);
+		}
+	}
+
+	&.left {
+		left: -1px;
+	}
+
+	&.right {
+		right: -1px;
+	}
+
+	&.top,
+	&.bottom {
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: transparent;
+		cursor: ns-resize;
+
+		&:hover {
+			background: rgba($primary-color, 0.3);
+		}
+	}
+
+	&.top {
+		top: -1px;
+	}
+
+	&.bottom {
+		bottom: -1px;
+	}
+
+	&.top-left,
+	&.top-right,
+	&.bottom-left,
+	&.bottom-right {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: $primary-color;
+		opacity: 0.8;
+
+		&:hover,
+		&:active {
+			background: $primary-hover;
+			opacity: 1;
+		}
+	}
+
+	&.top-left {
+		top: -4px;
+		left: -4px;
+		cursor: nw-resize;
+	}
+
+	&.top-right {
+		top: -4px;
+		right: -4px;
+		cursor: ne-resize;
+	}
+
+	&.bottom-left {
+		bottom: -4px;
+		left: -4px;
+		cursor: sw-resize;
+	}
+
+	&.bottom-right {
+		bottom: -4px;
+		right: -4px;
+		cursor: se-resize;
+	}
+}
+
+/* Main Close button */
+.better-page-ruler-close-btn {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background: $danger-color;
+	color: white;
+	font-size: 14px;
+	border: none;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	z-index: $z-dimensions;
+	@include touch-action(manipulation);
+	@include user-select-none;
+	@include browser-specific-styles;
+
+	&:hover {
+		background: $danger-hover;
+	}
+}
+
+// Browser-specific overrides
+@if $browser == 'firefox' {
+	// Firefox-specific adjustments
+	.better-page-ruler-overlay {
+		// Firefox may need different touch handling
+		touch-action: auto;
+	}
+
+	.better-page-ruler-handle {
+		// Firefox handle size adjustments if needed
+		&.top-left,
+		&.top-right,
+		&.bottom-left,
+		&.bottom-right {
+			width: 9px;
+			height: 9px;
+		}
+	}
+} @else if $browser == 'edge' {
+	// Edge-specific adjustments
+	.better-page-ruler-box {
+		// Edge may need different border handling
+		border-style: dashed;
+	}
+}

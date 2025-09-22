@@ -1,0 +1,40 @@
+{
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"prettier.requireConfig": true,
+	"prettier.useEditorConfig": false,
+	"prettier.configPath": ".prettierrc",
+	"prettier.resolveGlobalModules": false,
+	"prettier.withNodeModules": false,
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
+	"eslint.validate": ["javascript", "json"],
+	"files.associations": {
+		"*.json": "json"
+	},
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 2,
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.tabSize": 2,
+		"editor.detectIndentation": false
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": false,
+		"editor.tabSize": 2
+	},
+	"[css]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"[markdown]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	}
+}

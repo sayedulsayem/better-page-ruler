@@ -1,0 +1,26 @@
+{
+	"name": "better-page-ruler",
+	"version": "1.0.0",
+	"description": "Cross-browser Better Page Ruler extension with development tools",
+	"scripts": {
+		"dev": "node scripts/dev-reload.js",
+		"watch": "node scripts/dev-reload.js",
+		"build": "node scripts/build.js",
+		"build:chrome": "node scripts/build.js chrome",
+		"build:firefox": "node scripts/build.js firefox",
+		"build:edge": "node scripts/build.js edge",
+		"scss:dev": "sass src/style.scss src/style.css --watch --style=expanded",
+		"scss:build": "sass src/style.scss src/style.css --style=compressed",
+		"lint": "eslint src/*.js scripts/*.js",
+		"lint:fix": "eslint src/*.js scripts/*.js --fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"devDependencies": {
+		"eslint": "^8.57.0",
+		"prettier": "^3.2.5",
+		"sass": "^1.69.0"
+	},
+	"private": true,
+	"packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
+}
