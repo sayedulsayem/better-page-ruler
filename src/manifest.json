@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Better Page Ruler",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Draw, resize, drag and move a ruler box on any webpage.",
 	"permissions": ["scripting", "activeTab"],
 	"browser_specific_settings": {
